@@ -20,9 +20,7 @@ class ItemDetailsBloc extends Bloc<ItemDetailsEv, ItemDetailsState> {
       emit(state.copyWith(status: GetItemDetailsStatus.loading));
 
       var result = await getItemDetails(event.category ?? "");
-      result.fold((l) {
-        emit(state.copyWith(status: GetItemDetailsStatus.failure, errorMessage: l.message));
-      }, (r) {
+      result.fold((l) {}, (r) {
         emit(state.copyWith(status: GetItemDetailsStatus.sucess, getItemDetailsEntities: r));
       });
     });

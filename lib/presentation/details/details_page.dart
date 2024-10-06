@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:store_app/presentation/details/bloc/item_details_bloc.dart';
 import 'package:store_app/presentation/details/widget/custom_card.dart';
+import 'package:store_app/presentation/details/widget/description_card.dart';
 import 'package:store_app/routes/route_app.dart';
 
 class ItemDetailsPage extends StatefulWidget {
@@ -68,7 +69,14 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                                       image: item?.image ?? "",
                                       nameProduct: item?.title ?? "",
                                       isFavorite: isFavorite,
-                                      func: () {},
+                                      func: () {
+                                        Modular.to.push(
+                                          MaterialPageRoute(
+                                              builder: (context) => DescriptionCard(
+                                                    index: index,
+                                                  )),
+                                        );
+                                      },
                                       onFavoriteToggle: () {
                                         itemDetailsBloc.add(ToggleFavoriteEvent(
                                           itemId: item?.id.toString() ?? '',

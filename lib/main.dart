@@ -6,7 +6,6 @@ import 'package:store_app/app_module.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Inicialize o SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();
   runApp(
     ModularApp(

@@ -15,10 +15,6 @@ class DescriptionCard extends StatefulWidget {
 
 class _DescriptionCardState extends State<DescriptionCard> {
   final ItemDetailsBloc itemDetailsBloc = Modular.get<ItemDetailsBloc>();
-  @override
-  void setState(VoidCallback fn) {
-    super.setState(fn);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,17 +121,7 @@ class _DescriptionCardState extends State<DescriptionCard> {
                       color: Colors.purple,
                     ),
                   );
-                case GetItemDetailsStatus.failure:
-                  return const Center(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Infelizmente, este serviço\n ainda não esta disponível',
-                        style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ));
+
                 default:
                   return Container();
               }

@@ -18,7 +18,9 @@ class CategoryBloc extends Bloc<GetAllCategoryEvent, AllCategoryState> {
       emit(state.copyWith(status: GetAllCategoryStatus.loading));
 
       var result = await getAllCategoryUseCase();
-      result.fold((l) {}, (r) {
+      result.fold((l) {
+        emit(state.copyWith(status: GetAllCategoryStatus.failure, errorMessage: l.message));
+      }, (r) {
         emit(state.copyWith(status: GetAllCategoryStatus.sucess, getAllCategoryEntities: r));
       });
     });

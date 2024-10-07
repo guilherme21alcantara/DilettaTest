@@ -20,14 +20,14 @@ class ItemDetailsBloc extends Bloc<ItemDetailsEv, ItemDetailsState> {
       emit(state.copyWith(status: GetItemDetailsStatus.loading));
 
       var result = await getItemDetails(event.category ?? "");
-      result.fold((l) {}, (r) {
+      result.fold((l) {
+        // emit(state.copyWith(status: GetItemDetailsStatus.failure, errorMessage: l.message));
+      }, (r) {
         emit(state.copyWith(status: GetItemDetailsStatus.sucess, getItemDetailsEntities: r));
       });
     });
     on<ValueCategory>((event, emit) {
-      emit(state.copyWith(
-        valueCategory: event.valueCategory,
-      ));
+      emit(state.copyWith(valueCategory: event.valueCategory, status: GetItemDetailsStatus.sucess));
     });
     on<ToggleFavoriteEvent>((event, emit) async {
       List<String> favorites = List.from(state.favoriteItems);
@@ -35,14 +35,16 @@ class ItemDetailsBloc extends Bloc<ItemDetailsEv, ItemDetailsState> {
       if (favorites.contains(event.itemId)) {
         favorites.remove(event.itemId);
       } else {
-        favorites.add(event.itemId);
+        favorites.add(
+          event.itemId,
+        );
       }
       await sharedPreferences.setStringList('favorites', favorites);
-      emit(state.copyWith(favoriteItems: favorites));
+      emit(state.copyWith(favoriteItems: favorites, status: GetItemDetailsStatus.sucess));
     });
     on<LoadFavoritesEvent>((event, emit) async {
       final favorites = sharedPreferences.getStringList('favorites') ?? [];
-      emit(state.copyWith(favoriteItems: favorites));
+      emit(state.copyWith(favoriteItems: favorites, status: GetItemDetailsStatus.sucess));
     });
   }
 }

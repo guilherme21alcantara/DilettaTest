@@ -132,17 +132,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                       color: Colors.purple,
                     ),
                   );
-                case GetItemDetailsStatus.failure:
-                  return const Center(
-                      child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Infelizmente, este serviço\n ainda não esta disponível\n para o seu Cartão',
-                        style: TextStyle(fontSize: 18, color: Colors.black, fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ));
+
                 default:
                   return Container();
               }
